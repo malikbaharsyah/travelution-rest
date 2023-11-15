@@ -1,4 +1,4 @@
-CREATE TABLE SubsAccount(
+CREATE TABLE Account(
     Username VARCHAR(40) NOT NULL PRIMARY KEY,
     Password VARCHAR(50) NOT NULL,
     FirstName VARCHAR(20) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE SpecialPlace(
     PlaceContact VARCHAR(20) NOT NULL,
     PlaceEmail VARCHAR(50),
     PlaceWebsite VARCHAR(500),
-    Speciality VARCHAR(1000) NOT NULL
+    Speciality VARCHAR(1000)
 );
 
 CREATE TABLE PlaceImage(
