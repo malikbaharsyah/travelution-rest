@@ -29,9 +29,15 @@ function isAdmin(user) {
     return user.Role === 'Admin';
 }
 
+function getUsername(token) {
+    const decoded = decodeToken(token);
+    return decoded.Username;
+}
+
 module.exports = {
     generateToken,
     decodeToken,
     verifyToken,
     isAdmin,
+    getUsername
 }

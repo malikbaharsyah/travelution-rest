@@ -12,7 +12,7 @@ CREATE TABLE Voucher(
     VoucherID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     VoucherName VARCHAR(100) NOT NULL,
     VoucherDesc VARCHAR(1000) NOT NULL,
-    VoucherDiscount INT NOT NULL,
+    VoucherDiscount INT NOT NULL
 );
 
 CREATE TABLE Package(

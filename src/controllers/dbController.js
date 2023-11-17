@@ -127,12 +127,13 @@ async function getAccount(username, password) {
     }
 }
 
-async function createPackage(pName, pDesc, pStart, pEnd, pCity, pPrice) {
+async function createPackage(pName, pDesc, pRoute, pStart, pEnd, pCity, pPrice) {
     try {
         const newPackage = await prisma.package.create({
             data: {
                 PackageName: pName,
                 PackageDesc: pDesc,
+                PackageRoute: pRoute,
                 PackageStartDate: pStart,
                 PackageEndDate: pEnd,
                 PackageCity: pCity,
@@ -167,7 +168,7 @@ async function getAllPackages() {
     }
 }
 
-async function updatePackage(id, pName, pDesc, pStart, pEnd, pCity, pPrice) {
+async function updatePackage(id, pName, pDesc, pRoute, pStart, pEnd, pCity, pPrice) {
     try {
         // Create an object to store non-null values
         const updateData = {};
@@ -178,6 +179,9 @@ async function updatePackage(id, pName, pDesc, pStart, pEnd, pCity, pPrice) {
         }
         if (pDesc !== null) {
             updateData.PackageDesc = pDesc;
+        }
+        if (pRoute !== null) {
+            updateData.PackageRoute = pRoute;
         }
         if (pStart !== null) {
             updateData.PackageStartDate = pStart;
@@ -216,58 +220,6 @@ async function updatePackage(id, pName, pDesc, pStart, pEnd, pCity, pPrice) {
         throw error;
     }
 }
-
-async function addPlaceToPackage(packageId, placeId) {
-    try {
-        const packagePlace = await prisma.packagePlace.create({
-            data: {
-                PackageID: packageId,
-                PlaceID: placeId
-            }
-        });
-        return packagePlace;
-    } catch (error) {
-        throw error;
-    }
-}
-
-async function deletePlaceFromPackage(packageId, placeId) {
-    try {
-        const deletedPackagePlace = await prisma.packagePlace.delete({
-            where: {
-                PackageID_PlaceID: {
-                    PackageID: packageId,
-                    PlaceID: placeId
-                }
-            }
-        });
-        return deletedPackagePlace;
-    } catch (error) {
-        throw error;
-    }
-}
-
-async function getPlacesFromPackage(packageId) {
-    try {
-        const packagePlaces = await prisma.packagePlace.findMany({
-            where: {
-                PackageID: packageId
-            }
-        });
-        for (let i = 0; i < packagePlaces.length; i++) {
-            const place = await prisma.place.findFirst({
-                where: {
-                    PlaceID: packagePlaces[i].PlaceID
-                }
-            });
-            packagePlaces[i].Place = place;
-        }
-        return packagePlaces;
-    } catch (error) {
-        throw error;
-    }
-}
-
 
 async function deletePackage(id) {
     try {
@@ -315,8 +267,5 @@ module.exports = {
     createVoucher,
     getAllVouchers,
     deleteUserVoucher,
-    addPlaceToPackage,
-    deletePlaceFromPackage,
-    getPlacesFromPackage,
     createAccount
 }

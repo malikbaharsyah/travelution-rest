@@ -23,6 +23,17 @@ app.get('/test', (req, res) => {
     res.status(200).send('Hello!');
 });
 
+app.get('/profile', async (req, res) => {
+    auth.verifyToken(req, res, secret_token);
+
+    try {
+        const account = await dbcontroller.getAccount(req.user.Username, req.user.Password);
+        res.status(200).json({ data: { username: account.Username, role: account.Role}});
+    } catch (error) {
+        res.status(500).json({ error: 'Error getting profile' });
+    }
+});
+
 app.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
