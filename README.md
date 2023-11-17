@@ -13,6 +13,7 @@ travelution-rest adalah backend dari aplikasi travelution (khususnya travelution
 
 ## Skema basis data
 Basis data terdiri atas 4 tabel, yaitu tabel package, tabel voucher, tabel pengguna, dan tabel kepemilikan voucher dari pengguna. Untuk kepemilikan voucher ada foreign key menuju tabel pengguna dan voucher.
+
 ![ss](Screenshot 2023-11-17 103504.png)
 
 ## Daftar endpoint
