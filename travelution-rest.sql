@@ -48,11 +48,11 @@ insert into Voucher(VoucherID, VoucherName, VoucherDesc, VoucherDiscount) values
 insert into Voucher(VoucherID, VoucherName, VoucherDesc, VoucherDiscount) values (4, 'Diskon 25%', 'Nikmati diskon 25% untuk rencana perjalanan', 25);
 insert into Voucher(VoucherID, VoucherName, VoucherDesc, VoucherDiscount) values (5, 'Diskon 50%', 'Nikmati diskon 50% untuk rencana perjalanan', 50);
 
-insert into Package(PackageID, PackageName, PackageDesc, PackageStartDate, PackageEndDate, City, Price) values ('Sample Package 1', 'A wonderful package to visit.', 'Tempat A - Tempat B - Tempat C', '2020-01-01', '2020-01-03', 'City A', 1000000);
-insert into Package(PackageID, PackageName, PackageDesc, PackageStartDate, PackageEndDate, City, Price) values ('Sample Package 2', 'Explore the beauty of nature.', 'Tempat X - Tempat Y - Tempat Z', '2020-01-01', '2020-01-03', 'City B', 2000000);
-insert into Package(PackageID, PackageName, PackageDesc, PackageStartDate, PackageEndDate, City, Price) values ('Sample Package 3', 'A historical landmark.', 'Tempat P - Tempat Q - Tempat R', '2020-01-01', '2020-01-03', 'City C', 3000000);
-insert into Package(PackageID, PackageName, PackageDesc, PackageStartDate, PackageEndDate, City, Price) values ('Sample Package 4', 'A family-friendly amusement park.', 'Tempat M - Tempat N - Tempat O', '2020-01-01', '2020-01-03', 'City D', 4000000);
-insert into Package(PackageID, PackageName, PackageDesc, PackageStartDate, PackageEndDate, City, Price) values ('Sample Package 5', 'Experience fine dining.', 'Tempat G - Tempat H - Tempat I', '2020-01-01', '2020-01-03', 'City E', 5000000);
+insert into Package(PackageID, PackageName, PackageDesc, PackageRoute, PackageStartDate, PackageEndDate, City, Price) values (1, 'Sample Package 1', 'A wonderful package to visit.', 'Tempat A - Tempat B - Tempat C', '2020-01-01', '2020-01-03', 'City A', 1000000);
+insert into Package(PackageID, PackageName, PackageDesc, PackageRoute, PackageStartDate, PackageEndDate, City, Price) values (2, 'Sample Package 2', 'Explore the beauty of nature.', 'Tempat X - Tempat Y - Tempat Z', '2020-01-01', '2020-01-03', 'City B', 2000000);
+insert into Package(PackageID, PackageName, PackageDesc, PackageRoute, PackageStartDate, PackageEndDate, City, Price) values (3, 'Sample Package 3', 'A historical landmark.', 'Tempat P - Tempat Q - Tempat R', '2020-01-01', '2020-01-03', 'City C', 3000000);
+insert into Package(PackageID, PackageName, PackageDesc, PackageRoute, PackageStartDate, PackageEndDate, City, Price) values (4, 'Sample Package 4', 'A family-friendly amusement park.', 'Tempat M - Tempat N - Tempat O', '2020-01-01', '2020-01-03', 'City D', 4000000);
+insert into Package(PackageID, PackageName, PackageDesc, PackageRoute, PackageStartDate, PackageEndDate, City, Price) values (5, 'Sample Package 5', 'Experience fine dining.', 'Tempat G - Tempat H - Tempat I', '2020-01-01', '2020-01-03', 'City E', 5000000);
 
 insert into ListVoucher(Username, VoucherID) values ('dleithharvey0', 1);
 insert into ListVoucher(Username, VoucherID) values ('wdykes1', 1);
