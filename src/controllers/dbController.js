@@ -168,7 +168,16 @@ async function getAllPackages() {
     }
 }
 
-async function updatePackage(id, pName, pDesc, pRoute, pStart, pEnd, pCity, pPrice) {
+async function updatePackage(id, body) {
+
+    const pName = body.PackageName;
+    const pDesc = body.PackageDesc;
+    const pRoute = body.PackageRoute;
+    const pStart = body.PackageStartDate;
+    const pEnd = body.PackageEndDate;
+    const pCity = body.PackageCity;
+    const pPrice = body.PackagePrice;
+
     try {
         // Create an object to store non-null values
         const updateData = {};
@@ -196,9 +205,7 @@ async function updatePackage(id, pName, pDesc, pRoute, pStart, pEnd, pCity, pPri
             updateData.PackagePrice = pPrice;
         }
 
-        // Check if there are any non-null values to update
         if (Object.keys(updateData).length === 0) {
-            // No non-null values, return the existing package
             const existingPackage = await prisma.package.findUnique({
                 where: {
                     PackageID: id
@@ -207,7 +214,6 @@ async function updatePackage(id, pName, pDesc, pRoute, pStart, pEnd, pCity, pPri
             return existingPackage;
         }
 
-        // Update the package with the non-null values
         const updatedPackage = await prisma.package.update({
             where: {
                 PackageID: id
