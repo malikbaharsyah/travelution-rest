@@ -77,7 +77,7 @@ app.get('/user-voucher/:id', async (req, res) => {
     auth.verifyToken(req, res, secret_token);
 
     try {
-        const userVoucher = await dbcontroller.getUserVoucher(req.user.Username, req.params.id);
+        const userVoucher = await dbcontroller.getUserVoucher(req.user.Username, Number(req.params.id));
         res.status(200).json({ data: userVoucher });
     } catch (error) {
         res.status(500).json({ error: 'Error getting user voucher' });
@@ -97,7 +97,7 @@ app.get('user-voucher', async (req, res) => {
 app.delete('/user-voucher/:id', async (req, res) => {
     auth.verifyToken(req, res, secret_token);
     try {
-        const deletedVoucher = await dbcontroller.deleteUserVoucher(req.user.Username, req.params.id);
+        const deletedVoucher = await dbcontroller.deleteUserVoucher(req.user.Username, Number(req.params.id));
         res.status(200).json({ data: deletedVoucher });
     } catch (error) {
         res.status(500).json({ error: 'Error deleting user voucher' });
@@ -130,7 +130,7 @@ app.get('/voucher/:id', async (req, res) => {
     const id = req.params.id;
 
     try {
-        const voucher = await dbcontroller.getVoucher(id);
+        const voucher = await dbcontroller.getVoucher(Number(id));
         res.status(200).json({ data: voucher });
     } catch (error) {
         console.error('Error getting voucher:', error);
@@ -163,10 +163,10 @@ app.delete('/voucher/:id', async (req, res) => {
         return res.status(403).json({ message: 'Admin only'});
     }
 
-    const id = req.params.id;
+    const id = Number(req.params.id);
 
     try {
-        const deletedVoucher = await dbcontroller.deleteVoucher(id);
+        const deletedVoucher = await dbcontroller.deleteVoucher(Number(id));
         res.status(200).json({ message: 'Voucher deleted!', data: deletedVoucher });
     } catch (error) {
         console.error('Error deleting voucher:', error);
@@ -190,7 +190,7 @@ app.get('/package/:id', async (req, res) => {
     auth.verifyToken(req, res, secret_token);
 
     try {
-        const package = await dbcontroller.getPackage(req.params.id);
+        const package = await dbcontroller.getPackage(Number(req.params.id));
         res.status(200).json({ data: package });
     } catch (error) {
         console.error('Error getting package:', error);
@@ -206,7 +206,7 @@ app.put('/package/:id', async (req, res) => {
     }
 
     try {
-        const updatedPackage = await dbcontroller.updatePackage(req.params.id, req.body);
+        const updatedPackage = await dbcontroller.updatePackage(Number(req.params.id), req.body);
         res.status(200).json({ message: 'Package updated!', data: updatedPackage });
     } catch (error) {
         console.error('Error updating package:', error);
@@ -223,7 +223,7 @@ app.delete('/package/:id', async (req, res) => {
     }
 
     try {
-        const deletedPackage = await dbcontroller.deletePackage(req.params.id);
+        const deletedPackage = await dbcontroller.deletePackage(Number(req.params.id));
         res.status(200).json({ message: 'Package deleted!', data: deletedPackage });
     } catch (error) {
         console.error('Error deleting package:', error);
@@ -252,7 +252,7 @@ app.get('/package-place/:id', async (req, res) => {
     auth.verifyToken(req, res, secret_token);
 
     try {
-        const places = await dbcontroller.getPlacesFromPackage(req.params.id);
+        const places = await dbcontroller.getPlacesFromPackage(Number(req.params.id));
         res.status(200).json({ data: places });
     } catch (error) {
         console.error('Error getting places:', error);
