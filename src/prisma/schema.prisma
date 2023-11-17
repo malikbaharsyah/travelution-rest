@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  Username    String        @id @db.VarChar(40)
+  Password    String        @db.VarChar(50)
+  FirstName   String        @db.VarChar(20)
+  LastName    String        @db.VarChar(20)
+  Email       String        @db.VarChar(50)
+  PhoneNumber String        @db.VarChar(20)
+  Role        String        @db.VarChar(20)
+  ListVoucher ListVoucher[]
+  TravelPlan  TravelPlan[]
+}
+
+model ListVoucher {
+  ListVoucherID Int     @id @default(autoincrement())
+  Username      String  @db.VarChar(40)
+  VoucherID     Int
+  Account       Account @relation(fields: [Username], references: [Username], onDelete: NoAction, onUpdate: NoAction, map: "ListVoucher_ibfk_1")
+  Voucher       Voucher @relation(fields: [VoucherID], references: [VoucherID], onDelete: NoAction, onUpdate: NoAction, map: "ListVoucher_ibfk_2")
+
+  @@index([Username], map: "Username")
+  @@index([VoucherID], map: "VoucherID")
+}
+
+model Package {
+  PackageID        Int            @id @default(autoincrement())
+  PackageName      String         @db.VarChar(100)
+  PackageDesc      String         @db.VarChar(1000)
+  PackageStartDate DateTime       @db.Date
+  PackageEndDate   DateTime       @db.Date
+  City             String         @db.VarChar(100)
+  Price            Int
+  PackagePlace     PackagePlace[]
+}
+
+model PackagePlace {
+  PackagePlaceID Int          @id @default(autoincrement())
+  PackageID      Int
+  PlaceID        Int
+  Package        Package      @relation(fields: [PackageID], references: [PackageID], onDelete: NoAction, onUpdate: NoAction, map: "PackagePlace_ibfk_1")
+  SpecialPlace   SpecialPlace @relation(fields: [PlaceID], references: [PlaceID], onDelete: NoAction, onUpdate: NoAction, map: "PackagePlace_ibfk_2")
+
+  @@index([PackageID], map: "PackageID")
+  @@index([PlaceID], map: "PlaceID")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model PlaceImage {
+  PlaceID      Int          @default(autoincrement())
+  PlaceImg     String       @db.VarChar(15)
+  SpecialPlace SpecialPlace @relation(fields: [PlaceID], references: [PlaceID], onDelete: NoAction, onUpdate: NoAction, map: "PlaceImage_ibfk_1")
+
+  @@index([PlaceID], map: "PlaceID")
+  @@ignore
+}
+
+model PlaceList {
+  PlaceListID  Int          @id @default(autoincrement())
+  TravelPlanID Int
+  PlaceID      Int
+  DateStart    DateTime     @db.Date
+  DateEnd      DateTime     @db.Date
+  TimeStart    DateTime     @db.Time(0)
+  TimeEnd      DateTime     @db.Time(0)
+  TravelPlan   TravelPlan   @relation(fields: [TravelPlanID], references: [TravelPlanID], onDelete: NoAction, onUpdate: NoAction, map: "PlaceList_ibfk_1")
+  SpecialPlace SpecialPlace @relation(fields: [PlaceID], references: [PlaceID], onDelete: NoAction, onUpdate: NoAction, map: "PlaceList_ibfk_2")
+
+  @@index([PlaceID], map: "PlaceID")
+  @@index([TravelPlanID], map: "TravelPlanID")
+}
+
+model SpecialPlace {
+  PlaceID          Int            @id @default(autoincrement())
+  PlaceName        String         @db.VarChar(100)
+  PlaceLocation    String         @db.VarChar(100)
+  PlaceDescription String         @db.VarChar(1000)
+  PlaceType        String         @db.VarChar(50)
+  PlacePrice       Int
+  PlaceOpenTime    DateTime       @db.Time(0)
+  PlaceCloseTime   DateTime       @db.Time(0)
+  PlaceContact     String         @db.VarChar(20)
+  PlaceEmail       String?        @db.VarChar(50)
+  PlaceWebsite     String?        @db.VarChar(500)
+  PackagePlace     PackagePlace[]
+  PlaceImage       PlaceImage[]   @ignore
+  PlaceList        PlaceList[]
+}
+
+model TravelPlan {
+  TravelPlanID Int         @id @default(autoincrement())
+  Username     String      @db.VarChar(40)
+  DateStart    DateTime    @db.Date
+  DateEnd      DateTime    @db.Date
+  TotalPrice   Int
+  PlaceList    PlaceList[]
+  Account      Account     @relation(fields: [Username], references: [Username], onDelete: NoAction, onUpdate: NoAction, map: "TravelPlan_ibfk_1")
+
+  @@index([Username], map: "Username")
+}
+
+model Voucher {
+  VoucherID        Int           @id @default(autoincrement())
+  VoucherName      String        @db.VarChar(100)
+  VoucherDesc      String        @db.VarChar(1000)
+  VoucherDiscount  Int
+  VoucherStartDate DateTime      @db.Date
+  VoucherEndDate   DateTime      @db.Date
+  ListVoucher      ListVoucher[]
+}
