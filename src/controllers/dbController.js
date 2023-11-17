@@ -127,17 +127,17 @@ async function getAccount(username, password) {
     }
 }
 
-async function createPackage(pName, pDesc, pRoute, pStart, pEnd, pCity, pPrice) {
+async function createPackage(body) {
     try {
         const newPackage = await prisma.package.create({
             data: {
-                PackageName: pName,
-                PackageDesc: pDesc,
-                PackageRoute: pRoute,
-                PackageStartDate: pStart,
-                PackageEndDate: pEnd,
-                PackageCity: pCity,
-                PackagePrice: pPrice
+                PackageName: body.PackageName,
+                PackageDesc: body.PackageDesc,
+                PackageRoute: body.PackageRoute,
+                PackageStartDate: body.PackageStartDate,
+                PackageEndDate: body.PackageEndDate,
+                City: body.PackageCity,
+                Price: body.PackagePrice
             }
         });
         return newPackage;

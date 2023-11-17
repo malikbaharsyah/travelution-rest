@@ -28,7 +28,7 @@ app.get('/profile', async (req, res) => {
 
     try {
         const account = await dbcontroller.getAccount(req.user.Username, req.user.Password);
-        res.status(200).json({ data: { username: account.Username, role: account.Role}});
+        res.status(200).json({username: account.Username, role: account.Role});
     } catch (error) {
         res.status(500).json({ error: 'Error getting profile' });
     }
